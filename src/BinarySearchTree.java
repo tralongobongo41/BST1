@@ -27,6 +27,43 @@ public class BinarySearchTree {
     public void insert(int value) {
         // TODO: Implement this method
         // Hint: Use a recursive helper method
+
+        if(root == null)
+        {
+            root = new TreeNode(value);
+        }
+        else if(!search(value))
+        {
+            recurseInsertAGirlfriend(root, value);
+        }
+    }
+
+    public void recurseInsertAGirlfriend(TreeNode current, int value)
+    {
+        if(current.data > value)
+        {
+            if(current.left == null)
+            {
+                current.left = new TreeNode(value);
+            }
+            else
+            {
+                recurseInsertAGirlfriend(current.left, value);
+            }
+        }
+        if(current.data < value)
+        {
+            if(current.right == null)
+            {
+                current.right = new TreeNode(value);
+            }
+            else
+            {
+                recurseInsertAGirlfriend(current.right, value);
+            }
+        }
+
+
     }
 
     /**
@@ -35,9 +72,24 @@ public class BinarySearchTree {
      * @param value The value to search for
      * @return true if the value exists in the tree, false otherwise
      */
+    private TreeNode current = root;
+
     public boolean search(int value) {
         // TODO: Implement this method
         // Hint: Use recursion and leverage BST property
+        if(current.data == value)
+            return true;
+        else if(current.data > value && current.left != null)
+        {
+            current = current.left;
+            return search(value);
+        }
+        else if(current.data < value && current.right != null)
+        {
+            current = current.right;
+            return search(value);
+        }
+        return false;
     }
 
     /**
