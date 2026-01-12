@@ -102,6 +102,36 @@ public class BinarySearchTree {
         // TODO: Implement this method
         // Hint: Handle three cases - leaf, one child, two children
         // For two children, use inorder successor or predecessor
+
+        boolean valueExists = search(value);
+
+        if(!valueExists)
+        {
+            return;
+        }
+
+        if(current.data == value)
+        {
+            deleteHelper(value, );
+        }
+        else if(current.data > value && current.left != null)
+        {
+
+        }
+        else if(current.data < value && current.right != null)
+        {
+
+        }
+
+
+
+
+    }
+
+    public void deleteHelper(int value)
+    {
+        if(current.left != null && current.right != null)
+
     }
 
     /**
@@ -113,6 +143,20 @@ public class BinarySearchTree {
     public int findMin() {
         // TODO: Implement this method
         // Hint: Keep going left!
+
+        boolean b = true;
+        while(b)
+        {
+            if (current.left != null)
+            {
+                current = current.left;
+            }
+            else
+            {
+                b = false;
+            }
+        }
+        return current.data;
     }
 
     /**
@@ -124,6 +168,20 @@ public class BinarySearchTree {
     public int findMax() {
         // TODO: Implement this method
         // Hint: Keep going right!
+
+        boolean b = true;
+        while(b)
+        {
+            if (current.right != null)
+            {
+                current = current.right;
+            }
+            else
+            {
+                b = false;
+            }
+        }
+        return current.data;
     }
 
     /**
