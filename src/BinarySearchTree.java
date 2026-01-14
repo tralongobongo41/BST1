@@ -103,35 +103,88 @@ public class BinarySearchTree {
         // Hint: Handle three cases - leaf, one child, two children
         // For two children, use inorder successor or predecessor
 
+        //does this value exist?
         boolean valueExists = search(value);
 
+        //if value doesn't exist, end method; otherwise, continue
         if(!valueExists)
         {
             return;
         }
 
-        if(current.data == value)
+        //call the helper to make a node that goes one before the one we want to delete
+        TreeNode nodeOneBefore = nodeOneBefore(current, value);
+
+        //check which side the node is on
+        //left?
+        if(nodeOneBefore.left != null && nodeOneBefore.left.data == value)
         {
-            deleteHelper(value, );
+            //check which case it is
+            if(nodeOneBefore.left.left == null && nodeOneBefore.left.right == null) //case 1: leaf
+                nodeOneBefore.left = null; //delete the node
+
+            else if(nodeOneBefore.left.left == null) //case 2: one child (on the right)
+                //connect the nodeOneBefore to the child on the right
+                nodeOneBefore.left = nodeOneBefore.left.right;
+            else if(nodeOneBefore.left.right == null) //case 2: one child (on the left)
+                //connect the nodeOneBefore to the child on the left
+                nodeOneBefore.left = nodeOneBefore.left.left;
+
+            else if(nodeOneBefore.left.left != null && nodeOneBefore.left.right != null) //case 3: two children
+                deleteWithTwoChildren(nodeOneBefore.left);
         }
-        else if(current.data > value && current.left != null)
+
+        //right?
+        else if(nodeOneBefore.right != null && nodeOneBefore.right.data == value)
         {
+            //check which case it is
+            if(nodeOneBefore.right.left == null && nodeOneBefore.right.right == null) //leaf case
+                nodeOneBefore.right = null; //delete the node
 
+            else if(nodeOneBefore.right.left == null) //case 2: one child (on the right)
+                //connect the nodeOneBefore to the child on the right
+                nodeOneBefore.right = nodeOneBefore.right.right;
+            else if(nodeOneBefore.right.right == null) //case 2: one child (on the left)
+                //connect the nodeOneBefore to the child on the left
+                nodeOneBefore.right = nodeOneBefore.right.left;
+
+            else if(nodeOneBefore.right.left != null && nodeOneBefore.right.right != null) //case 3: two children
+                deleteWithTwoChildren(nodeOneBefore.right);
         }
-        else if(current.data < value && current.right != null)
-        {
-
-        }
-
-
-
 
     }
 
-    public void deleteHelper(int value)
+    //helper method for delete that handles the two-children case
+    public void deleteWithTwoChildren(TreeNode replacing)
     {
-        if(current.left != null && current.right != null)
+        TreeNode oneBeforeCurrent = replacing;
+        current = replacing.left;
+        while(current.right != null)
+        {
+            current = current.right;
+        }
+        replacing.data = current.data;
 
+        //MORE TO DO HERE!***
+    }
+
+
+    //helper method for delete that goes to the node one before the deletion node
+    public TreeNode nodeOneBefore(TreeNode current, int value)
+    {
+        if(current.data != value) {
+            if (current.data > value && current.left != null) {
+                if(current.left.data == value)
+                    return current;
+                return nodeOneBefore(current.left, value);
+            }
+            else if (current.data < value && current.right != null) {
+                if (current.right.data == value)
+                    return current;
+                return nodeOneBefore(current.right, value);
+            }
+        }
+        return current;
     }
 
     /**
