@@ -377,6 +377,7 @@ public class BinarySearchTree {
         // TODO: Implement this method
         if(root == null)
             return true;
+        return false;
     }
 
     /**
