@@ -8,7 +8,6 @@ import java.util.List;
  * @date [1-6-2026]
  */
 public class BinarySearchTree {
-
     private TreeNode root;
 
     /**
@@ -34,11 +33,11 @@ public class BinarySearchTree {
         }
         else if(!search(value))
         {
-            recurseInsertAGirlfriend(root, value);
+            recurseInsert(root, value);
         }
     }
 
-    public void recurseInsertAGirlfriend(TreeNode current, int value)
+    public void recurseInsert(TreeNode current, int value)
     {
         if(current.data > value)
         {
@@ -48,7 +47,7 @@ public class BinarySearchTree {
             }
             else
             {
-                recurseInsertAGirlfriend(current.left, value);
+                recurseInsert(current.left, value);
             }
         }
         if(current.data < value)
@@ -59,7 +58,7 @@ public class BinarySearchTree {
             }
             else
             {
-                recurseInsertAGirlfriend(current.right, value);
+                recurseInsert(current.right, value);
             }
         }
 
@@ -163,9 +162,15 @@ public class BinarySearchTree {
         {
             current = current.right;
         }
-        replacing.data = current.data;
 
-        //MORE TO DO HERE!***
+        //save the value of current node
+        int replacementValue = current.data;
+
+        //call delete method for current node
+        delete(current.data);
+
+        //set data at replace node to replacementValue
+        replacing.data = replacementValue;
     }
 
 
@@ -201,13 +206,9 @@ public class BinarySearchTree {
         while(b)
         {
             if (current.left != null)
-            {
                 current = current.left;
-            }
             else
-            {
                 b = false;
-            }
         }
         return current.data;
     }
@@ -226,13 +227,9 @@ public class BinarySearchTree {
         while(b)
         {
             if (current.right != null)
-            {
                 current = current.right;
-            }
             else
-            {
                 b = false;
-            }
         }
         return current.data;
     }
@@ -246,6 +243,26 @@ public class BinarySearchTree {
         // TODO: Implement this method
         // Hint: Left -> Root -> Right
         // Should return values in sorted order!
+
+        List<TreeNode> values = new ArrayList<>();
+
+        inorderHelper(root, values);
+
+        return values;
+    }
+
+    public void inorderHelper(TreeNode current, List values)
+    {
+        if(current == null)
+            return;
+
+        if(current.left != null)
+            inorderHelper(current.left, values);
+
+        values.add(current.data);
+
+        if(current.right != null)
+            inorderHelper(current.right, values);
     }
 
     /**
@@ -256,6 +273,26 @@ public class BinarySearchTree {
     public List preorderTraversal() {
         // TODO: Implement this method
         // Hint: Root -> Left -> Right
+
+        List<TreeNode> values = new ArrayList<>();
+
+        inorderHelper(root, values);
+
+        return values;
+    }
+
+    public void preorderHelper(TreeNode current, List values)
+    {
+        if(current == null)
+            return;
+
+        values.add(current.data);
+
+        if(current.left != null)
+            inorderHelper(current.left, values);
+
+        if(current.right != null)
+            inorderHelper(current.right, values);
     }
 
     /**
@@ -266,6 +303,26 @@ public class BinarySearchTree {
     public List postorderTraversal() {
         // TODO: Implement this method
         // Hint: Left -> Right -> Root
+
+        List<TreeNode> values = new ArrayList<>();
+
+        inorderHelper(root, values);
+
+        return values;
+    }
+
+    public void postorderHelper(TreeNode current, List values)
+    {
+        if(current == null)
+            return;
+
+        if(current.left != null)
+            inorderHelper(current.left, values);
+
+        if(current.right != null)
+            inorderHelper(current.right, values);
+
+        values.add(current.data);
     }
 
     /**
@@ -275,19 +332,40 @@ public class BinarySearchTree {
      *
      * @return The height of the tree
      */
-    public int height() {
+    //public int height() {
         // TODO: Implement this method
         // Hint: Use recursion - height = 1 + max(left height, right height)
-    }
+    //}
 
     /**
      * Count the number of nodes in the BST.
      *
      * @return The number of nodes
      */
+
+    private int size;
+
     public int size() {
         // TODO: Implement this method
         // Hint: Recursively count nodes
+
+        size = 0;
+
+        sizeHelper(current);
+
+        return size;
+    }
+
+    public void sizeHelper(TreeNode current)
+    {
+        if(current == null)
+            return;
+
+        if(current.left != null)
+            sizeHelper(current.left, size);
+
+        if(current.right != null)
+            sizeHelper(current.right, size);
     }
 
     /**
@@ -297,6 +375,8 @@ public class BinarySearchTree {
      */
     public boolean isEmpty() {
         // TODO: Implement this method
+        if(root == null)
+            return true;
     }
 
     /**
