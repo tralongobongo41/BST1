@@ -362,10 +362,10 @@ public class BinarySearchTree {
             return;
 
         if(current.left != null)
-            sizeHelper(current.left, size);
+            sizeHelper(current.left);
 
         if(current.right != null)
-            sizeHelper(current.right, size);
+            sizeHelper(current.right);
     }
 
     /**
