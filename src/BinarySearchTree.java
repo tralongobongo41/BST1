@@ -76,6 +76,8 @@ public class BinarySearchTree {
     public boolean search(int value) {
         // TODO: Implement this method
         // Hint: Use recursion and leverage BST property
+
+        current = root;
         if(current.data == value)
             return true;
         else if(current.data > value && current.left != null)
@@ -201,6 +203,7 @@ public class BinarySearchTree {
     public int findMin() {
         // TODO: Implement this method
         // Hint: Keep going left!
+        current = root;
 
         boolean b = true;
         while(b)
@@ -222,6 +225,7 @@ public class BinarySearchTree {
     public int findMax() {
         // TODO: Implement this method
         // Hint: Keep going right!
+        current = root;
 
         boolean b = true;
         while(b)
@@ -332,10 +336,22 @@ public class BinarySearchTree {
      *
      * @return The height of the tree
      */
-    //public int height() {
+    public int height() {
         // TODO: Implement this method
         // Hint: Use recursion - height = 1 + max(left height, right height)
-    //}
+        return heightHelperMethod(root);
+    }
+
+    public int heightHelperMethod(TreeNode current)
+    {
+        if(current == null)
+            return -1; //empty tree
+
+        int left = heightHelperMethod(current.left);
+        int right = heightHelperMethod(current.right);
+
+        return 1 + Math.max(left, right);
+    }
 
     /**
      * Count the number of nodes in the BST.

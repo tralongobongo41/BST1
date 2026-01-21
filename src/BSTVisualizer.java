@@ -27,7 +27,7 @@ public class BSTVisualizer extends JFrame {
     // Traversal animation
     private boolean isTraversing = false;
     private Timer traversalTimer;
-    private List traversalSequence;
+    private List<TreeNode> traversalSequence;
     private int traversalIndex = 0;
     private String currentTraversalType = "";
     private int animationDelay = 600;
