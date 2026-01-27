@@ -77,18 +77,23 @@ public class BinarySearchTree {
         // TODO: Implement this method
         // Hint: Use recursion and leverage BST property
 
-        current = root;
+        return searchRecurse(value, root);
+    }
+
+    public boolean searchRecurse(int value, TreeNode current){
+        if(current == null)
+            return false;
         if(current.data == value)
             return true;
-        else if(current.data > value && current.left != null)
+        if(current.data > value && current.left != null)
         {
             current = current.left;
-            return search(value);
+            return searchRecurse(value, current.right);
         }
         else if(current.data < value && current.right != null)
         {
             current = current.right;
-            return search(value);
+            return searchRecurse(value, current.left);
         }
         return false;
     }
