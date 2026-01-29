@@ -71,7 +71,7 @@ public class BinarySearchTree {
      * @param value The value to search for
      * @return true if the value exists in the tree, false otherwise
      */
-    private TreeNode current = root;
+    private TreeNode current;
 
     public boolean search(int value) {
         // TODO: Implement this method
@@ -85,15 +85,15 @@ public class BinarySearchTree {
             return false;
         if(current.data == value)
             return true;
-        if(current.data > value && current.left != null)
+        if(current.data > value && current.left != null) // value < current.data
         {
             current = current.left;
-            return searchRecurse(value, current.right);
+            return searchRecurse(value, current);
         }
         else if(current.data < value && current.right != null)
         {
             current = current.right;
-            return searchRecurse(value, current.left);
+            return searchRecurse(value, current);
         }
         return false;
     }
@@ -366,12 +366,13 @@ public class BinarySearchTree {
 
     public int size() {
         // TODO: Implement this method
-        // Hint: Recursively count nodes
+        // Hint: Recursively count node
 
         if(root == null)
             return 0;
 
-        int size = 1;
+        current = root;
+        int size = 0;
 
         return sizeHelper(current, size);
     }
@@ -382,12 +383,12 @@ public class BinarySearchTree {
 
         if(current.left != null)
         {
-            num += sizeHelper(current.left, num);
+            num = sizeHelper(current.left, num);
         }
 
         if(current.right != null)
         {
-            num += sizeHelper(current.right, num);
+            num = sizeHelper(current.right, num);
         }
 
         return num;
