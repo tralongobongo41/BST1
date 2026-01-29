@@ -364,29 +364,33 @@ public class BinarySearchTree {
      * @return The number of nodes
      */
 
-    private int size;
-
     public int size() {
         // TODO: Implement this method
         // Hint: Recursively count nodes
 
-        size = 0;
+        if(root == null)
+            return 0;
 
-        sizeHelper(current);
+        int size = 1;
 
-        return size;
+        return sizeHelper(current, size);
     }
 
-    public void sizeHelper(TreeNode current)
+    public int sizeHelper(TreeNode current, int num)
     {
-        if(current == null)
-            return;
+        num++;
 
         if(current.left != null)
-            sizeHelper(current.left);
+        {
+            num += sizeHelper(current.left, num);
+        }
 
         if(current.right != null)
-            sizeHelper(current.right);
+        {
+            num += sizeHelper(current.right, num);
+        }
+
+        return num;
     }
 
     /**
